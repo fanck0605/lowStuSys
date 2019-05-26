@@ -28,7 +28,10 @@ public class SchoolMgr {
         System.out.print("Did he(she) join courses?(Yes or No)");
         String select = getString();
         if (select.toLowerCase().equals("yes") || select.charAt(0) == 'y') {
-            System.out.println("Courses can be choose: "+courseMgr.toString());
+            System.out.println("Courses can be choose: ");
+            for (String courseName : courseMgr.getCourses()) {
+                System.out.println("\t" + courseName);
+            }
             System.out.println("Now please enter the course's name!");
             String course = getString();
             Course temp;
@@ -38,37 +41,34 @@ public class SchoolMgr {
                 System.out.println("Invalid course! Add fail!");
             }
         }
-        if(studentMgr.addStudent(student)){
+        if (studentMgr.addStudent(student)) {
             System.out.println("Add student success!");
-        }else{
-            System.out.println("Add student failed! Student already exist!");
+        } else {
+            System.out.println("Add student failed!");
         }
     }
 
     public void createCourse() {
-        System.out.println("Now enter the course's information.");
         System.out.println("Please input the course's name:");
         String name = getString();
-        courseMgr.addCourse(new Course(name));
-        System.out.println("Create course success");
-    }
-
-    public void showStudents() {
-        System.out.println("1.Show all students' information");
-        System.out.println("2.Show a course's student information.");
-        int select = getInt();
-        if (select == 1) {
-            studentMgr.showStudents();
-        } else if (select == 2) {
-            System.out.println("Courses can be choose: "+courseMgr.toString());
-            System.out.println("Please enter the course name");
-            String name = getString();
-            courseMgr.showClassByName(name);
+        if (courseMgr.addCourse(new Course(name))) {
+            System.out.println("Create course success!");
+        } else {
+            System.out.println("Create course failed!");
         }
     }
 
-    public void showCourses() {
-
+    public void showStudents() {
+        studentMgr.showStudents();
     }
 
+    public void showStudentByCourse() {
+        System.out.println("Courses can be choose: ");
+        for (String courseName : courseMgr.getCourses()) {
+            System.out.println("\t" + courseName);
+        }
+        System.out.println("Please enter the course name");
+        String name = getString();
+        courseMgr.showClassByName(name);
+    }
 }

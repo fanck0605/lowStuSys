@@ -11,24 +11,24 @@ public class StudentMgr {
     }
 
     public boolean addStudent(Student e) {
-        if (students.contains(e)) {
-            return false;
-        } else {
+        if (searchByStudentId(e.getStudentId()) == null && searchByName(e.getName()) == null) {
             students.add(e);
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean addStudent(String name, String gender, int age, long studentId) {
-        if (searchByStudentId(studentId) != null) {
-            return false;
-        } else {
+        if (searchByStudentId(studentId) == null && searchByName(name) == null) {
             students.add(new Student(name, gender, age, studentId));
             return true;
+        } else {
+            return false;
         }
     }
 
-    public Student searchByName(String n) {
+    private Student searchByName(String n) {
         Iterator<Student> ite = students.iterator();
         Student temp = null;
         while (ite.hasNext()) {
@@ -38,7 +38,7 @@ public class StudentMgr {
         return temp;
     }
 
-    public Student searchByStudentId(long id) {
+    private Student searchByStudentId(long id) {
         Iterator<Student> ite = students.iterator();
         Student temp = null;
         while (ite.hasNext()) {
@@ -49,35 +49,19 @@ public class StudentMgr {
     }
 
     public void showStudents() {
-        System.out.printf("%-12s%-12s%-10s-%-4s\n", "ID", "Name", "Gender", "Age");
-        System.out.println();
+        System.out.printf("%-12s%-12s%-10s%-4s%s\n", "ID", "Name", "Gender", "Age", "Courses");
         for (int index = 0; index < students.size(); index++) {
-            showStudent(index);
-        }
-    }
-
-    public void showStudent(Student student) {
-        String[] courseList = student.getCourseList();
-        System.out.printf("%-12d%-12s%-10s%-4d",
-                student.getStudentId(), student.getName(), student.getGender(), student.getAge());
-        for (int i = 0; i < courseList.length; i++) {
-            System.out.printf("%-8s",courseList);
-            if ((i + 1) % 3 == 0) {
-                System.out.printf("\n%-35s", "");
+            Student student = students.get(index);
+            String[] courseList = student.getCourseList();
+            System.out.printf("%-12d%-12s%-10s%-4d",
+                    student.getStudentId(), student.getName(), student.getGender(), student.getAge());
+            for (int i = 0; i < courseList.length; i++) {
+                System.out.printf("%-8s", courseList[i]);
+                if ((i + 1) % 3 == 0) {
+                    System.out.printf("\n%-36s", "");
+                }
             }
-        }
-    }
-
-    public void showStudent(int index) {
-        showStudent(students.get(index));
-    }
-
-    public void showStudent(String name) {
-        Student student;
-        if ((student = searchByName(name)) != null) {
-            showStudent(student);
-        } else {
-            System.out.println("Can't find this student!");
+            System.out.println();
         }
     }
 }

@@ -20,7 +20,7 @@ public class StudentSystemConsole {
                     schoolMgr.showStudents();
                     break;
                 case 4:
-                    schoolMgr.showCourses();
+                    schoolMgr.showStudentByCourse();
                     break;
                 case 5:
                     System.exit(0);
@@ -34,17 +34,17 @@ public class StudentSystemConsole {
     public static void menu() {
         System.out.println("1.Add a student");
         System.out.println("2.Create a course");
-        System.out.println("3.Print student list");
-        System.out.println("4.Print course list");
+        System.out.println("3.Show all student");
+        System.out.println("4.Show a class");
         System.out.println("5.Exit this console");
 
     }
 
     public static void showAuthorInfo() {
         System.out.println();
-        System.out.println("Author     : èŒƒæˆæº");
+        System.out.println("Author     : ·¶³Éâı");
         System.out.println("Student ID : 2018144106");
-        System.out.println("Class      : 18è½¯ä»¶1");
+        System.out.println("Class      : 18Èí¼ş1");
         System.out.println();
     }
 }

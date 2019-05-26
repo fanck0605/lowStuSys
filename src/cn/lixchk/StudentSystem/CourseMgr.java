@@ -10,24 +10,23 @@ public class CourseMgr {
         addCourse("Java");
     }
 
-    public boolean addCourse(Course course) {
-        if (courses.contains(course)) {
-            return false;
-        } else {
-            courses.add(course);
+    public boolean addCourse(Course e) {
+        if (searchByName(e.getName()) == null) {
+            courses.add(e);
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean addCourse(String name) {
-        if (searchByName(name)!=null) {
-            return false;
-        } else {
+        if (searchByName(name) == null) {
             courses.add(new Course(name));
             return true;
+        } else {
+            return false;
         }
     }
-
 
     /**
      * @param name of course
@@ -35,24 +34,36 @@ public class CourseMgr {
      */
     public Course searchByName(String name) {
         Iterator<Course> ite = courses.iterator();
-        Course temp=null;
+        Course temp = null;
         while (ite.hasNext()) {
-            if ((temp=ite.next()).getName().equals(name)) {
+            if ((temp = ite.next()).getName().equals(name)) {
                 return temp;
             }
         }
         return temp;
     }
 
+    public boolean hasCourse(String name) {
+        return searchByName(name) != null;
+    }
 
-    public void showClassByName(String courseName){
-        Course course= searchByName(courseName);
-        if(course==null){
+
+    public void showClassByName(String courseName) {
+        Course course;
+        if ((course = searchByName(courseName)) == null) {
             System.out.println("Can't find this course!");
-        }
-        else{
+        } else {
             course.showClass();
         }
+    }
+
+    public String[] getCourses() {
+        int courseSize = courses.size();
+        String[] courseStr = new String[courseSize];
+        for (int index = 0; index < courseSize; index++) {
+            courseStr[index] = courses.get(index).getName();
+        }
+        return courseStr;
     }
 
     @Override

@@ -9,7 +9,7 @@ public class Student extends Person {
 
 
 
-    public static final int UNKNOWN_STUDENT_ID = -1;
+    public static final int NO_STUDENT_ID = -1;
 
 
     public Student(String name, String gender, int age, long studentId) {
@@ -29,7 +29,7 @@ public class Student extends Person {
         } else if (this.studentId > 2000000000 && this.studentId < 2100000000) {
             System.out.println("Invalid student ID! student ID don't Change");
         } else {
-            this.studentId = UNKNOWN_STUDENT_ID;
+            this.studentId = NO_STUDENT_ID;
         }
     }
 
@@ -55,16 +55,6 @@ public class Student extends Person {
         return courseListStr;
     }
 
-    public boolean dropCourse(String courseStr) {
-        for (int index = 0; index < courseList.size(); index++) {
-            if (courseList.get(index).getName().equals(courseStr)) {
-                courseList.remove(index);
-                return true;
-            }
-        }
-        return false;
-    }
-
     public String courseInformation(String courseName){
         Iterator<Course> ite = courseList.iterator();
         Course temp;
@@ -78,7 +68,7 @@ public class Student extends Person {
             return "Null course list.";
     }
 
-    public boolean dropCourse2(String courseName) {
+    public boolean dropCourse(String courseName) {
         Iterator<Course> ite = courseList.iterator();
         Course temp;
         while (ite.hasNext()) {
